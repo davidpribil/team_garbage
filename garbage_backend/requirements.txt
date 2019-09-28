@@ -1,0 +1,2 @@
+django~=2.0
+-e git+https://github.com/makinacorpus/django-leaflet.git#egg=django-leaflet
