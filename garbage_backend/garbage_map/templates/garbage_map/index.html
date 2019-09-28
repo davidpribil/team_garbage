@@ -11,6 +11,14 @@
 <script>
     window.addEventListener("map:init", function (event) {
         var map = event.detail.map;
-        displayPolygon(map, {{ polygon }})
+        let collector = new RoiCollector(map);
+        {% for polygon in polygons %}
+            {% if polygon.geometry == 'Polygon' %}
+                collector.displayPolygon({{ polygon.points }});
+            {% else %}
+                collector.displayPolyLine({{ polygon.points }})
+            {% endif %}
+        {% endfor %}
+        collector.centerMap();
 });
 </script>
