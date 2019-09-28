@@ -12,6 +12,8 @@ def index(request):
             points = roi.polygon.coords
         else:
             points = roi.line_string.coords
-        polygons.append({"geometry": roi.geometry, "points": json.dumps(points)})
+        polygons.append(
+            {"geometry": roi.geometry, "points": json.dumps(points), "osm": roi.osm_id}
+        )
     context = {"polygons": polygons}
     return HttpResponse(template.render(context, request))

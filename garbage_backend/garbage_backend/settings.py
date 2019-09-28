@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "garbage_map",
+    "django_extensions",
     "django.contrib.gis",
     "leaflet",
 ]
