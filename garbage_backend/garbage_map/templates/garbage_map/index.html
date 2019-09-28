@@ -3,7 +3,14 @@
 <head>
     {% leaflet_js %}
     {% leaflet_css %}
+    {% load static %}
+    <script src="{% static 'garbage_map/app.js' %}"></script>
 </head>
 
 {% leaflet_map "yourmap" %}
-<a href="sadsadsa.com">Test link</a>
+<script>
+    window.addEventListener("map:init", function (event) {
+        var map = event.detail.map;
+        displayPolygon(map, {{ polygon }})
+});
+</script>
