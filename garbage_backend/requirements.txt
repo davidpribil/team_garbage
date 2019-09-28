@@ -1,5 +1,5 @@
 django~=2.0
 -e git+https://github.com/makinacorpus/django-leaflet.git#egg=django-leaflet
-psycopg2
+psycopg2-binary
 meteomatics
 django-extensions
