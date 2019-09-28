@@ -8,7 +8,7 @@ from sklearn.utils.multiclass import unique_labels
 
 def plot_confusion_matrix(y_true, y_pred, classes,
                           normalize=False,
-                          title=True,
+                          title=None,
                           cmap=plt.cm.Blues):
     """
     This function prints and plots the confusion matrix.
@@ -18,7 +18,7 @@ def plot_confusion_matrix(y_true, y_pred, classes,
         if normalize:
             title = 'Normalized confusion matrix'
         else:
-            title = 'Confusion Matrix'
+            title = 'Confusion matrix, without normalization'
 
     # Compute confusion matrix
     cm = confusion_matrix(y_true, y_pred)
@@ -58,6 +58,7 @@ def plot_confusion_matrix(y_true, y_pred, classes,
             ax.text(j, i, format(cm[i, j], fmt),
                     ha="center", va="center",
                     color="white" if cm[i, j] > thresh else "black")
+    fig.tight_layout()
     return ax
 
 df = pd.read_csv('/home/giandbt/Documents/hack/team_garbage/data/clean_datav6.csv')
@@ -82,35 +83,24 @@ for id in classes:
 low = 3
 mid = 4
 
-labels_classes = []
-for label in y_val:
-    if label < low:
-        labels_class = 0
-    elif label >= low and label <=mid:
-        labels_class = 1
-    else:
-        labels_class = 2
-    labels_classes.append(labels_class)
-y_val = np.array(labels_classes)
-
 size_val = len(X_val)
-
 y_preds = []
 for idx, feature in enumerate(X_val):
     try:
         y_pred = predictions[feature]
-        if y_pred < low:
-            labels_class = 0
-        elif y_pred >= low and y_pred <= mid:
-            labels_class = 1
-        else:
-            labels_class = 2
-        y_preds.append(labels_class)
+        y_preds.append(y_pred)
     except:
-        print(idx)
-        y_preds.append(1)
+        y_preds.append(4)
 
-classes = np.unique(y_val)
-plot_confusion_matrix(y_val, y_preds, classes)
-#plt.show()
-plt.savefig('final_model_confusion_matrix.png', bbox_inches='tight')
+summation = 0
+summation_mae = 0
+for i in range (0,size_val):  #looping through each element of the list
+  difference = abs(y_preds[i] - y_val[i])  #finding the difference between observed and predicted value
+  squared_difference = difference**2  #taking square of the differene
+  summation = summation + squared_difference  #taking a sum of all the differences
+  summation_mae = summation_mae + difference  #taking a sum of all the differences
+MSE = summation/size_val  #dividing summation by total values to obtain average
+MAE = summation_mae/size_val  #dividing summation by total values to obtain average
+
+print("The Mean Square Error is: " , MSE)
+print("The Mean Absolute Error is: " , MAE)
