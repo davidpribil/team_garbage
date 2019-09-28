@@ -1,29 +1,31 @@
 {% load leaflet_tags %}
 
 <head>
+    {% csrf_token %}
     {% leaflet_js %}
     {% leaflet_css %}
     {% load static %}
+    <link rel="stylesheet" href="{% static 'garbage_map/app.css' %}" />
     <script src="{% static 'garbage_map/app.js' %}"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 </head>
-
+<h3 class='title'>CleanPath</h3>
+<input type="text" name="predict_date" class='date-picker' value='' />
+<div id='predict_id', class='predict-class'></div>
+<script src="{% static 'garbage_map/input.js' %}"></script>
 {% leaflet_map "yourmap" %}
+<div class='event_list'>
+    <h1>Events</h1>
+    <ul id='events_ul'>
+    </ul>
+</div>
 <script>
+    garbageMap = null;
     window.addEventListener("map:init", function (event) {
-        var map = event.detail.map;
-        let collector = new RoiCollector(map);
-        {% for polygon in polygons %}
-            {% if polygon.geometry == 'Polygon' %}
-                poly = collector.displayPolygon({{ polygon.points }});
-            {% else %}
-                poly = collector.displayPolyLine({{ polygon.points }});
-            {% endif %}
-            poly.bindPopup(`<ul>
-                            <li>{{ polygon.osm }}</li>
-                            <li>Event info</li>
-                            <li>Other event info</li>
-                            </ul>`);
-        {% endfor %}
-        collector.centerMap();
+        garbageMap = event.detail.map;
+        garbageMap.setView([47.55839, 7.57327], 12)
 });
 </script>

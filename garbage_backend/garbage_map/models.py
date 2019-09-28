@@ -47,6 +47,15 @@ class RoiInfo(models.Model):
         )
         return place_type[0] if place_type else None
 
+    @classmethod
+    def find_place_name(cls, roi):
+        place_type = (
+            cls.objects.filter(osm_id=roi.osm_id, cci_id=roi.cci_id)
+            .values_list("place_name", flat=True)
+            .distinct()
+        )
+        return place_type[0] if place_type else None
+
     class Meta:
         indexes = [models.Index(fields=["osm_id"]), models.Index(fields=["cci_id"])]
 

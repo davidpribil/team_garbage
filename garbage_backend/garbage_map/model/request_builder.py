@@ -20,7 +20,7 @@ def build_date_block(date):
 
     result = []
     # Generate response for ROI
-    for roi in ROI.objects.all()[:5]:
+    for roi in ROI.objects.all():
         place_type = RoiInfo.find_place_type(roi)
         if roi.geometry == "Polygon":
             points = roi.polygon.coords

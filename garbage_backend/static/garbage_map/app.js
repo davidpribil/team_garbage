@@ -5,16 +5,38 @@ class RoiCollector {
         this.bounds = null
     }
 
-    displayPolygon(latlngs) {
-        var polygon = L.polygon(latlngs, { color: 'red' }).addTo(this.map);
+    displayRoi(roi) {
+        var poly;
+        if (roi.geometry == 'Polygon') {
+            poly = this.displayPolygon(roi.points, roi.color);
+        }
+        else {
+            poly = this.displayPolyLine(roi.points, roi.color);
+        }
+        this.addPopup(poly, roi);
+        return poly;
+    }
+
+    displayPolygon(latlngs, color) {
+        var polygon = L.polygon(latlngs, { color: color }).addTo(this.map);
         this.handleBounds(polygon)
         return polygon;
     }
 
-    displayPolyLine(latlngs) {
-        var polyLine = L.polyline(latlngs, { color: 'red' }).addTo(this.map);
+    displayPolyLine(latlngs, color) {
+        var polyLine = L.polyline(latlngs, { color: color }).addTo(this.map);
         this.handleBounds(polyLine)
         return polyLine;
+    }
+
+    addPopup(poly, roi) {
+        var ul = document.createElement("ul");
+        for (let idx in roi.popupContent) {
+            var li = document.createElement('li');
+            ul.appendChild(li);
+            li.innerHTML = roi.popupContent[idx]
+        }
+        poly.bindPopup(ul);
     }
 
     handleBounds(poly) {

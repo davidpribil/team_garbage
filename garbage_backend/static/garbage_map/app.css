@@ -1,0 +1,19 @@
+.leaflet-container {
+    width: 75%;
+    height: 100%;
+    position: absolute;
+    top: 60;
+    left: 0;
+}
+
+.event_list {
+    width: 20%;
+    height: 100%;
+    position: absolute;
+    left: 76%;
+}
+
+.title, .date-picker, .predict-class {
+    float: left;
+    margin: 10px;
+}
