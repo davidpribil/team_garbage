@@ -65,7 +65,9 @@ def correlation_heatmap(train):
     fig, ax = plt.subplots(figsize=(10, 10))
     sns.heatmap(correlations, vmax=1.0, center=0, fmt='.2f',
                 square=True, linewidths=.5, annot=True, cbar_kws={"shrink": .70})
-    plt.show();
+    #plt.show()
+    plt.savefig('final_model_correlation.png', bbox_inches='tight')
+
 
 X_train = df[['osm_id','weekday', 'day_type', 'place_type', 'latitudes', 'longitudes', 'group_ids', 'event',
                'mean_temp', 'mean_wind_speed', 'total_prep', 'cci']]
