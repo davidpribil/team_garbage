@@ -11,7 +11,7 @@ from sklearn.pipeline import Pipeline
 df = pd.read_csv('./data/clean_data.csv')
 
 labels = df['cci'].values
-features = df[['osm_id','Weekday', 'day_type', 'days', 'months', 'place_type', 'geometry' ]].values
+features = df[['osm_id','weekday', 'day_type', 'place_type', 'geometry']].values
 
 # Hyper-parameters
 SEED = 7
