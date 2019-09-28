@@ -8,10 +8,21 @@ from sklearn.model_selection import KFold
 from sklearn.preprocessing import StandardScaler
 from sklearn.pipeline import Pipeline
 
-df = pd.read_csv('./data/clean_data.csv')
+df = pd.read_csv('./data/clean_datav4.csv')
 
 labels = df['cci'].values
-features = df[['osm_id','weekday', 'day_type', 'place_type', 'geometry']].values
+labels_classes = []
+for label in labels:
+    if label < 3:
+        labels_class = 0
+    if label >= 3 and label <=4:
+        labels_class = 1
+    else:
+        labels_class = 0
+    labels_classes.append(labels_class)
+
+labels = labels_classes
+features = df[['osm_id','weekday', 'day_type', 'place_type', 'latitudes', 'longitudes', 'group_ids', 'event']].values
 
 # Hyper-parameters
 SEED = 7

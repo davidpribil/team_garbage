@@ -4,7 +4,7 @@ import shapefile as shp
 import math
 from shapely.wkt import loads as load_wkt
 
-df = pd.read_csv('/home/giandbt/Documents/hack/team_garbage/data/clean_datav2.csv')
+df = pd.read_csv('/home/giandbt/Documents/hack/team_garbage/data/clean_datav5.csv')
 longitudes = df['longitudes'].values
 latitudes = df['latitudes'].values
 
@@ -37,5 +37,5 @@ for index, row in df.iterrows():
     group_id = str(idx) + str(jdx)
     group_ids.append(group_id)
 
-df['group_ids'] = group_ids
-df.to_csv(r'./data/clean_datav3.csv')
+df['group_ids_2'] = group_ids
+df.to_csv(r'./data/clean_datav6.csv')
