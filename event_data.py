@@ -18,7 +18,7 @@ dy = (max_lat - min_lat)/num_tiles
 
 longitudes = np.arange(min_long, max_long+dx, dx)
 latitudes = np.arange(min_lat, max_lat+dx, dy)
-
+df['event'] = df.shape[0] * [0]
 
 for index, row in df_events.iterrows():
     print(index)
@@ -35,10 +35,10 @@ for index, row in df_events.iterrows():
         if latitude < latitudes[jdx+1]:
             break
 
-    group_id = str(idx) + str(jdx)
+    group_id_event = str(idx) + str(jdx)
+    past_days = 3
+    df_affected = df.loc[(df['months'] <= int(month)) & (df['group_ids'] == int(group_id_event)) & (df['days'] >= day-past_days) & (df['days'] <= day)]
+    for index, row in df_affected.iterrows():
+        df['event'][index] = 1
 
-    df_affected = df.loc[(df['months'] <= month) & (df['group_ids'] == group_id) & (df['day'] >= day-3) & (df['day'] <= day)]
-    print(df_affected)
-
-
-df.to_csv(r'./data/clean_datav3.csv')
+df.to_csv(r'./data/clean_datav4.csv')
