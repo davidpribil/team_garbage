@@ -1,11 +1,11 @@
 $(function () {
+    // Date change handling
     $('input[name="predict_date"]').daterangepicker({
         singleDatePicker: true,
         showDropdowns: true,
-        minYear: 1901,
-        maxYear: parseInt(moment().format('YYYY'), 10),
+        minDate: '04/01/2019',
+        maxDate: '09/25/2019'
     }, function (start, end, label) {
-        console.log(start.toDate());
         $.ajax({
             url: 'calcResults',
             type: 'GET',

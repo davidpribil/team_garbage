@@ -12,8 +12,19 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 </head>
-<h3 class='title'>CleanPath</h3>
-<input type="text" name="predict_date" class='date-picker' value='' />
+<h3 class='title float-left'>CleanPath</h3>
+<input type="text" name="predict_date" class='date-picker float-left' value='' />
+<div class='description float-left'>
+Map of Basel (Switzerland): Region based cleanliness prediction based on weather,
+events and video data. <b>Please select a date and zoom in to visualize the predicted
+or historical data for cleanliness in the city</b></div>
+<div class='float-left color-map'>
+<ul>
+<li class='green'>Clean</li>
+<li class='yellow'>Acceptable</li>
+<li class='red'>Dirty</li>
+</ul>
+</div>
 <div id='predict_id', class='predict-class'></div>
 <script src="{% static 'garbage_map/input.js' %}"></script>
 {% leaflet_map "yourmap" %}

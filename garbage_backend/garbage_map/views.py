@@ -3,7 +3,7 @@ from django.template import loader
 from garbage_map.models import ROI, RoiInfo, Event
 import json
 from dateutil import parser
-from django.db.models import Max
+from garbage_map.model.request_builder import get_predictions
 
 
 def index(request):
@@ -29,24 +29,24 @@ def calc_results(request):
     """
     date = parser.parse(request.GET["date"]).date()
     # We either display things in prediction or historical data mode
-    max_date = RoiInfo.objects.aggregate(Max("date"))["date__max"]
-    if date > max_date.date():
-        # prediction
-        # Open pre-calculated predictions
-        with open("predictions.json") as fr:
-            predictions = json.load(fr)
+    matching_roi = RoiInfo.objects.filter(date__date=date)
+    predictions = {}
+    if not matching_roi:
+        # Prediction. Get all ROIs and predictions for the date
+        roi_data, prediction_array = get_predictions(date)
+        for idx, roi_datum in enumerate(roi_data):
+            prediction = prediction_array[idx]
+            clazz = get_class(prediction)
+            predictions[f"{roi_datum['osm_id']}_{roi_datum['cci_id']}"] = {
+                "class": clazz,
+                "cont": prediction,
+            }
         pred_label = "Prediction"
     else:
         roi_infos = RoiInfo.objects.filter(date__date=date)
-        predictions = {}
         for ri in roi_infos:
             cci = ri.cci
-            if cci < 3:
-                clazz = 0
-            elif cci < 4:
-                clazz = 1
-            else:
-                clazz = 2
+            clazz = get_class(cci)
             predictions[f"{ri.osm_id}_{ri.cci_id}"] = {"class": clazz, "cont": cci}
         pred_label = "Historical Data"
     results = []
@@ -83,6 +83,16 @@ def calc_results(request):
     return JsonResponse(
         {"rois": results, "events": event_names, "prediction": pred_label}, safe=False
     )
+
+
+def get_class(prediction):
+    if prediction < 3:
+        clazz = 0
+    elif prediction < 4:
+        clazz = 1
+    else:
+        clazz = 2
+    return clazz
 
 
 def get_roi_points(roi):

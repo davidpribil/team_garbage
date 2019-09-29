@@ -3,3 +3,4 @@ django~=2.0
 psycopg2-binary
 meteomatics
 django-extensions
+scikit-learn

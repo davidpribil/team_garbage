@@ -10,6 +10,7 @@ Instructions:
 5. Install geolocation dependency (gdal). On Ubuntu: `sudo apt-get install gdal-bin`
 6. Add `hostname` to the ALLOWED_HOSTS in settings
 7. Start the server with `python manage.py runserver 0.0.0.0:8000`
-8. Go to `http://hostname:8000/map/`
+8. Copy the final model file (`finalized_model.sav`) to the root of the web app
+9. Go to `http://hostname:8000/map/`
 
 You can see the demo here: http://ec2-52-18-145-254.eu-west-1.compute.amazonaws.com:8000/map/

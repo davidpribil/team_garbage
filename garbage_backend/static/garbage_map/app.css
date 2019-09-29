@@ -13,7 +13,33 @@
     left: 76%;
 }
 
-.title, .date-picker, .predict-class {
+.float-left {
     float: left;
     margin: 10px;
+}
+
+.description {
+    font-size: 0.8em;
+    width: 550px;
+}
+
+.color-map {
+    margin-top: -10;
+    font-size: 0.8em;
+    margin-left: 0;
+    margin-right: 0;
+    padding-right: 4;
+    background-color: lightgray;
+}
+
+.green {
+    color: green;
+}
+
+.yellow {
+    color: yellow;
+}
+
+.red {
+    color: red;
 }

@@ -7,6 +7,7 @@ class ROI(models.Model):
     cci_id = models.TextField(null=True)
     roi_type = models.TextField()
     geometry = models.TextField()
+    average = models.FloatField()
 
     polygon = models.PolygonField(null=True)
     line_string = models.LineStringField(null=True)
