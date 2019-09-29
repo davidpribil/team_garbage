@@ -6,7 +6,7 @@ df = pd.read_csv('./data/clean_data.csv')
 zones = df[['osm_id', 'cci', 'months', 'days']]
 fig, ax = plt.subplots(figsize=(15,7))
 zones = zones.groupby(['osm_id', 'months', 'days']).mean()
-zones.to_csv(r'./data/analysis.csv')
+print(zones)
 results = zones.groupby(['osm_id']).var().values
 
 '''

@@ -1,5 +1,10 @@
 import pandas as pd
 import numpy as np
+from shapely.wkt import loads as load_wkt
+
+def centroid(point):
+    p1 = load_wkt(point)
+    return p1.centroid.x, p1.centroid.y
 
 # get colections
 df_collections = pd.read_csv('/home/giandbt/Documents/hack/team_garbage/data/2019-09-27-basel-collections.csv')
@@ -17,14 +22,15 @@ years = []
 times = []
 ccis = []
 place_types = []
-coordinates = []
+longitudes = []
+latitudes = []
 geometry = []
 
 place_type_list = df_measures.place_type.unique()
 print(place_type_list)
 
-df_measures['Weekday'] = pd.to_datetime(df_measures['date']).dt.dayofweek
-df_measures['day_type'] = (df_measures['Weekday'] >= 5).astype(int)
+df_measures['weekday'] = pd.to_datetime(df_measures['date']).dt.dayofweek
+df_measures['day_type'] = (df_measures['weekday'] >= 5).astype(int)
 
 for index, row in df_measures.iterrows():
     print(index)
@@ -38,7 +44,10 @@ for index, row in df_measures.iterrows():
             geometry.append(0)
         else:
             geometry.append(1)
-        coordinates.append(df_collections['coordinates'][labels[0]])
+        coordinate = df_collections['coordinates'][labels[0]]
+        longitude, latitude = centroid(coordinate)
+        longitudes.append(longitude)
+        latitudes.append(latitude)
     else:
         for label in labels:
             if df_collections['cci_id'][label] == cci_id:
@@ -46,7 +55,10 @@ for index, row in df_measures.iterrows():
                     geometry.append(0)
                 else:
                     geometry.append(1)
-                coordinates.append(df_collections['coordinates'][label])
+                coordinate = df_collections['coordinates'][label]
+                longitude, latitude = centroid(coordinate)
+                longitudes.append(longitude)
+                latitudes.append(latitude)
 
     date, time = row['date'].split(' ')
     place_type = row['place_type']
@@ -91,10 +103,11 @@ df_clean['days'] = days
 df_clean['months'] = months
 df_clean['place_type'] = place_types
 df_clean['geometry'] = geometry
-df_clean['coordinates'] = coordinates
+df_clean['latitudes'] = latitudes
+df_clean['longitudes'] = longitudes
 
 
-df_clean.to_csv(r'./data/clean_data.csv')
+df_clean.to_csv(r'./data/clean_datav2.csv')
 
 
 
