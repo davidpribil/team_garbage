@@ -1,6 +1,6 @@
 ## Inspiration
 
-The garbage collection today is based on a schedule basis which does not change. This creates problems when there are events where lots of garbage accumulates which may not be cleared until the next garbage collection schedule. Why not use the data such as events, weather, etc. to predict and schedule the garbage collection in a city?
+Garbage collection today is conducted on a fixed schedule chosen on human's bias observation. This creates problems when there are events such as concerts where lots of garbage accumulates which may not be cleared until the next garbage collection schedule. This project addresses the problem by predicting a city cleaning index (CCI) for every street and venue around the city. This prediction is made from publicly available data, such as previous events, weather and day characteristics. With this information, the sweeper company is able to develop an optimal schedule and clean the city when needed. Thus, avoiding redundancy around cleaning and ensuring a cleaner city.
 
 ## Possible features
 1. Weather information
