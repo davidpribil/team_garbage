@@ -4,7 +4,12 @@ Garbage collection today is conducted on a fixed schedule chosen on human's bias
 
 ## Setup
 1. The server setup can be found under `garbage_backend` [here](https://github.com/davidpribil/team_garbage/tree/master/garbage_backend)
-2. Setting up a conda environment to train the model can be found [here]()
+2. Setting up a [conda environment](https://www.anaconda.com/distribution/) to train the model:
+```
+git clone https://github.com/davidpribil/team_garbage # Clone this repo
+cd team_garbage
+conda create -n new environment --file requirements.txt ## Based on anaconda3
+```
 
 ## Dataset info
 The dataset is based on three components:
@@ -13,3 +18,6 @@ The dataset is based on three components:
 3. Events data taken from [Eventful](http://api.eventful.com/keys)
 
 A combined dataset can be found under ```./data``` directory.
+
+## URL to webservice
+You can see the webservice at [CleanPath](http://ec2-52-31-147-235.eu-west-1.compute.amazonaws.com:8000/map/)
