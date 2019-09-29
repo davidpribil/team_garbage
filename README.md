@@ -20,7 +20,14 @@ The garbage collection today is based on a schedule basis which does not change.
 
 pip install meteomatics
 
-## Clean data from G
+## Dataset info
+The dataset is based on three components:
+1. Image data
+2. Weather data
+3. Events data
+
+A combined dataset can be found under ```./data``` directory.
+
 Day type
 	Weekday - 0
 	Weekend - 1
