@@ -13,4 +13,4 @@ Instructions:
 8. Copy the final model file (`finalized_model.sav`) to the root of the web app
 9. Go to `http://hostname:8000/map/`
 
-You can see the demo here: http://ec2-52-18-145-254.eu-west-1.compute.amazonaws.com:8000/map/
+You can see the demo here: http://ec2-52-31-147-235.eu-west-1.compute.amazonaws.com:8000/map/
